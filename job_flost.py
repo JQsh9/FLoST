@@ -1,11 +1,11 @@
 # dependencies python3
 import numpy as np
-from scipy.io import loadmat
 import math
 import random
 from sklearn.preprocessing import RobustScaler
 from sklearn.preprocessing import QuantileTransformer
 #from scipy.special import boxcox, inv_boxcox
+from scipy.io import loadmat
 from scipy.linalg import svd
 from scipy.ndimage import uniform_filter, maximum_filter, gaussian_filter
 # visualization
