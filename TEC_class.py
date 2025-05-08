@@ -9,7 +9,7 @@ from sklearn.preprocessing import QuantileTransformer
 from scipy.linalg import svd
 from scipy.ndimage import uniform_filter, maximum_filter, gaussian_filter
 
-from tqdm import tqdm
+#from tqdm import tqdm
 
 # visualization
 import matplotlib.pyplot as plt
@@ -106,7 +106,7 @@ class TEC_data():
         self.lam1_opt = tuned
         self.error = optimizer.max['target']
 
-
+        '''
     def tune_k(self, lower_k, upper_k, lower_lam2, upper_lam2,
                #init_points=5, n_iter=50, 
                metric = 'rmse'):
@@ -122,7 +122,7 @@ class TEC_data():
                 error = self.error
                 k_opt = k
         return k_opt, error
-        '''
+
         def black_box_function(x):
             self.k = x
             self.sv1, self.sv2 = get_singular_values(self.tensor_dropped,self.r,self.k)
