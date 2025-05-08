@@ -6,11 +6,11 @@ import math
 
 
 def generate_tensor_vista(dates):
-    data = loadmat('data/' + dates[0] + '_VISTA.mat')
+    data = loadmat('../data/' + dates[0] + '_VISTA.mat')
     tec_MF_lt = data['tec_MF_lt']
     tec_VISTA = data['imputed']
     for day in range(1,len(dates)):
-        data = loadmat('data/' + dates[day] + '_VISTA.mat')
+        data = loadmat('../data/' + dates[day] + '_VISTA.mat')
         tec_MF_lt = np.concatenate((tec_MF_lt, data['tec_MF_lt']), axis=2)
         tec_VISTA = np.concatenate((tec_VISTA, data['imputed']), axis=2)
     return tec_VISTA, tec_MF_lt # tec_VISTA is the complete tensor, tec_MF_lt is with real missingness
