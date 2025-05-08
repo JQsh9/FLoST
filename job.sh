@@ -1,4 +1,3 @@
-
 #!/bin/bash
 ## sbatch job.sh to run
 #SBATCH --job-name=FLoST
