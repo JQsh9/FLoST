@@ -22,5 +22,7 @@
 ####  Commands your job should run follow this line
 ###   Load software modules
 module load python3.11-anaconda/2024.02
+source $(conda info --base)/etc/profile.d/conda.sh
+conda activate flost-env
 ####  Commands your job should run follow this line
 python3 job_flost.py $SLURM_ARRAY_TASK_ID 
