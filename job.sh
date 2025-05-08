@@ -22,20 +22,9 @@
 ####  Commands your job should run follow this line
 ###   Load software modules
 module load python3.11-anaconda/2024.02
-source $(conda info --base)/etc/profile.d/conda.sh
-conda activate flost-env
-
-echo "DEBUG  which python = $(which python)"
-python - <<'PY'
-import sys
-print("DEBUG  sys.executable =", sys.executable)
-try:
-    import bayes_opt
-    print("DEBUG  bayes_opt version =", bayes_opt.__version__)
-except ModuleNotFoundError as e:
-    print("DEBUG  import failed:", e)
-PY
-
+#### source $(conda info --base)/etc/profile.d/conda.sh
+#### conda activate flost-env
 
 ####  Commands your job should run follow this line
-python3 job_flost.py $SLURM_ARRAY_TASK_ID 
+/home/jiuqian/.conda/envs/flost-env/bin/python job_flost.py $SLURM_ARRAY_TASK_ID
+#### python3 job_flost.py $SLURM_ARRAY_TASK_ID 
