@@ -1,3 +1,15 @@
+echo "DEBUG  which python = $(which python)"
+python - <<'PY'
+import sys
+print("DEBUG  sys.executable =", sys.executable)
+try:
+    import bayes_opt
+    print("DEBUG  bayes_opt version =", bayes_opt.__version__)
+except ModuleNotFoundError as e:
+    print("DEBUG  import failed:", e)
+PY
+
+
 #!/bin/bash
 ## sbatch job.sh to run
 #SBATCH --job-name=FLoST
