@@ -50,5 +50,5 @@ else: lam_results_quantile = VISTA_1906.lam1_opt
 
 # 2. JSON (also human‑readable, keeps Python list structure)
 import json, pathlib
-pathlib.Path(f"lams_300_{tune_start}.json").write_text(json.dumps({"lam_results": lam_results, "lam_results_quantile": lam_results_quantile}))
+pathlib.Path(f"lams_{k}_{tune_start}.json").write_text(json.dumps({"lam_results": lam_results, "lam_results_quantile": lam_results_quantile}))
 
