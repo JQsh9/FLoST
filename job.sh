@@ -1,6 +1,6 @@
 #!/bin/bash
 ## sbatch job.sh to run
-#SBATCH --job-name=FLoST
+#SBATCH --job-name=FLoST_k200
 #SBATCH --mail-user=jiuqian@umich.edu
 #SBATCH --mail-type=FAIL,ARRAY_TASKS
 
@@ -15,8 +15,8 @@
 #SBATCH --mem-per-cpu=10GB
 
 ## wall time hours:minutes:seconds
-#SBATCH --time=24:00:00
-#SBATCH --array=100
+#SBATCH --time=15:00:00
+#SBATCH --array=2,52,102,152
 
 ###   Load software modules
 ####  Commands your job should run follow this line
