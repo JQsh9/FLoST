@@ -115,7 +115,7 @@ class TEC_data():
                   lam2, metric = 'rmse',
                   init_points=5, n_iter=50,
                   verbose = 0,random_state=0,):
-        tuned = []
+        tuned = self.sv2[:tune_start-2]
         for i in range(tune_start, tune_start+n_tune, 2):
             def black_box_function(x,y):
                 lam1_tune = tuned + [x,y] + self.sv2[i:]
@@ -132,7 +132,7 @@ class TEC_data():
             optimizer.maximize(init_points=init_points,n_iter=n_iter)
             tuned.append(optimizer.max['params']['x'])
             tuned.append(optimizer.max['params']['y'])
-        self.lam1_opt = tuned
+        self.lam1_opt = tuned[tune_start-2:]
         self.error = optimizer.max['target']
 
     def validation_tune_lam2(self, 
@@ -157,7 +157,7 @@ class TEC_data():
                   lam2, metric = 'rmse',
                   init_points=5, n_iter=50,
                   verbose = 0,random_state=0,):
-        tuned = []
+        tuned = self.sv2[:tune_start-2]
         for i in range(tune_start, tune_start+n_tune, 2):
             def black_box_function(x,y):
                 lam1_tune = tuned + [x,y] + self.sv2[i:]
@@ -174,7 +174,7 @@ class TEC_data():
             optimizer.maximize(init_points=init_points,n_iter=n_iter)
             tuned.append(optimizer.max['params']['x'])
             tuned.append(optimizer.max['params']['y'])
-        self.lam1_opt = tuned
+        self.lam1_opt = tuned[tune_start-2:]
         self.error = optimizer.max['target']
 
     def validation_tune_lam1(self,
