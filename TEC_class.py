@@ -185,7 +185,7 @@ class TEC_data():
         for i in range(2, self.k+1, 2):
             def black_box_function(x,y):
                 lam1_tune = tuned + [x,y] + self.sv2[i:]
-                self.run_completion(lam1=lam1_tune, lam2=lam2,train=)
+                self.run_completion(lam1=lam1_tune, lam2=lam2,train=True)
                 if metric == 'rse':
                     return -np.linalg.norm(self.tensor_hat[self.val_idx]-self.tensor_dropped[self.val_idx])/np.linalg.norm(self.tensor_dropped[self.val_idx])
                 elif metric == 'rmse':
