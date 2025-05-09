@@ -11,6 +11,16 @@ def randomly_drop_pixels(tensor, drop_rate, seed=2024):
         tensor_dropped.reshape(-1)[drop_indices] = np.nan
         return tensor_dropped
 
+def holdout_validation(tensor, val_ratio=0.10, seed=0):
+    rng = np.random.default_rng(seed)
+    obs_flat = np.flatnonzero(~np.isnan(tensor))
+    n_val = int(np.ceil(val_ratio * obs_flat.size))
+    val_flat = rng.choice(obs_flat, size=n_val, replace=False)
+    val_idx  = np.unravel_index(val_flat, tensor.shape)
+    train_tensor  = tensor.copy()
+    train_tensor[val_idx] = np.nan    
+    return train_tensor, val_idx
+        
 def get_singular_values(tensor,r,k):
     sv1 = []
     sv2 = []
