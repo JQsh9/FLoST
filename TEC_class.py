@@ -106,6 +106,30 @@ class TEC_data():
         self.lam1_opt = tuned
         self.error = optimizer.max['target']
 
+    def tune_lam1_parallel(self, tune_start, n_tune,
+                  lam2, metric = 'rmse',
+                  init_points=5, n_iter=50,
+                  verbose = 0,random_state=0,):
+        tuned = []
+        for i in range(tune_start, tune_start+n_tune, 2):
+            def black_box_function(x,y):
+                lam1_tune = tuned + [x,y] + self.sv2[i:]
+                self.run_completion(lam1=lam1_tune, lam2=lam2,)
+                if metric == 'rse':
+                    return -np.linalg.norm(self.tensor_hat - self.tec_VISTA)/np.linalg.norm(self.tec_VISTA)
+                elif metric == 'rmse':
+                    return -np.linalg.norm(self.tensor_hat - self.tec_VISTA)/math.sqrt(self.tec_VISTA.size)
+            pbounds = {'x': (self.sv2[i-2]-1000, self.sv1[i-2]+1000), 
+                       'y': (self.sv2[i-1]-1000, self.sv1[i-1]+1000)}
+            optimizer = BayesianOptimization(
+                f=black_box_function,
+                pbounds=pbounds,random_state=random_state,verbose=verbose,)
+            optimizer.maximize(init_points=init_points,n_iter=n_iter)
+            tuned.append(optimizer.max['params']['x'])
+            tuned.append(optimizer.max['params']['y'])
+        self.lam1_opt = tuned
+        self.error = optimizer.max['target']
+
         '''
     def tune_k(self, lower_k, upper_k, lower_lam2, upper_lam2,
                #init_points=5, n_iter=50, 
