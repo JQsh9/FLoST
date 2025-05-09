@@ -1,6 +1,6 @@
 #!/bin/bash
 ## sbatch job.sh to run
-#SBATCH --job-name=vtk300
+#SBATCH --job-name=vtk200
 #SBATCH --mail-user=jiuqian@umich.edu
 #SBATCH --mail-type=FAIL,ARRAY_TASKS
 
@@ -16,7 +16,7 @@
 
 ## wall time hours:minutes:seconds
 #SBATCH --time=15:00:00
-#SBATCH --array=2,52,102,152,202,252
+#SBATCH --array=2,52,102,152
 
 ###   Load software modules
 ####  Commands your job should run follow this line
