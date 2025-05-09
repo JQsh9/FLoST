@@ -15,8 +15,8 @@
 #SBATCH --mem-per-cpu=10GB
 
 ## wall time hours:minutes:seconds
-#SBATCH --time=10:00:00
-#SBATCH --array=10,50,100,200,300,400
+#SBATCH --time=24:00:00
+#SBATCH --array=100
 
 ###   Load software modules
 ####  Commands your job should run follow this line
