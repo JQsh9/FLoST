@@ -25,7 +25,7 @@ from TEC_class import TEC_data
 import sys
 #k = int(sys.argv[1])
 tune_start = int(sys.argv[1])
-k=100
+k=300
 
 dates = ['190621', '190622', '190623', '190624', '190625', '190626']
 
