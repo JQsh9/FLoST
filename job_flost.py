@@ -25,7 +25,8 @@ from TEC_class import TEC_data
 import sys
 #k = int(sys.argv[1])
 tune_start = int(sys.argv[1])
-k=400
+d3 = 288*6
+k=math.ceil( (d3 + 1)/2 )
 
 dates = ['190621', '190622', '190623', '190624', '190625', '190626']
 
@@ -54,4 +55,4 @@ pathlib.Path(f"lams_{k}_{tune_start}.json").write_text(json.dumps({"lam_results"
 '''
 
 import json
-with open(f"lams_{k}_{tune_start}.json","w") as f: json.dump(lam_results, f)
+with open(f"full_lams_{tune_start}.json","w") as f: json.dump(lam_results, f)
