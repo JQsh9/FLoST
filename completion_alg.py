@@ -16,15 +16,14 @@ def sparse_low_rank(tensor, # with missingness pixels
         S = [max(x, 0) for x in S - lam1[i]]
         t_hat[:,:,i] = np.dot(U, np.dot(np.diag(S), Vh))
     half_d3 = math.ceil( (d3 + 1)/2 )
+    if half_d3> k:
+        # sparse part
+        real_part = tensor[:,:,k:half_d3].flatten().real
+        imag_part = tensor[:,:,k:half_d3].flatten().imag
 
-    # sparse part
-    real_part = tensor[:,:,k:half_d3].flatten().real
-    imag_part = tensor[:,:,k:half_d3].flatten().imag
-
-    t_hat[:,:,k:half_d3] = np.maximum(real_part - lam2[0], 0).reshape(d1, d2, half_d3 - k )
-    t_hat[:,:,k:half_d3] = t_hat[:,:,k:half_d3] + 1j * np.maximum(imag_part - lam2[1], 0).reshape(d1, d2, half_d3 - k)
-    
-    # symmetrize the tensor
+        t_hat[:,:,k:half_d3] = np.maximum(real_part - lam2[0], 0).reshape(d1, d2, half_d3 - k )
+        t_hat[:,:,k:half_d3] = t_hat[:,:,k:half_d3] + 1j * np.maximum(imag_part - lam2[1], 0).reshape(d1, d2, half_d3 - k)
+   # symmetrize the tensor
     for i in range(half_d3, d3):
         t_hat[:, :, i] = np.conj(t_hat[:, :, d3 - i])
     return np.fft.ifft(t_hat, axis=2).real
