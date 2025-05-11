@@ -55,4 +55,4 @@ pathlib.Path(f"lams_{k}_{tune_start}.json").write_text(json.dumps({"lam_results"
 '''
 
 import json
-with open(f"full_lams_{tune_start}.json","w") as f: json.dump(lam_results, f)
+with open(f"full_lams_r5_{tune_start}.json","w") as f: json.dump(lam_results, f)
