@@ -31,7 +31,8 @@ def get_singular_values(tensor,r,k):
     for i in range(k):
         U, S , Vh =np.linalg.svd(tensor[:,:,i], full_matrices=False)
         sv1.append(S[r-1])
-        sv2.append(S[r])
+        #sv2.append(S[r])
+        sv2.append(min(S))
     return sv1, sv2
 
 def robust_scaler(tensor # tensor with missing values
