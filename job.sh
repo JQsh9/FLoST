@@ -1,8 +1,8 @@
 #!/bin/bash
 ## sbatch job.sh to run
-#SBATCH --job-name=tune_full_r5
+#SBATCH --job-name=A_T500_K100_p5
 #SBATCH --mail-user=jiuqian@umich.edu
-#SBATCH --mail-type=FAIL,ARRAY_TASKS
+#SBATCH --mail-type=FAIL
 
 #SBATCH --account=stats_dept1
 #SBATCH --partition=standard
@@ -12,11 +12,11 @@
 #SBATCH --cpus-per-task=1
 
 ## 5GB/cpu is the basic share
-#SBATCH --mem-per-cpu=10GB
+#SBATCH --mem-per-cpu=5GB
 
 ## wall time hours:minutes:seconds
-#SBATCH --time=15:00:00
-#SBATCH --array=2,52,102,152,202,252,302,352,402,452,502,552,602,652,702,752,802,852
+#SBATCH --time=10:00:00
+
 ###   Load software modules
 ####  Commands your job should run follow this line
 ###   Load software modules
@@ -25,5 +25,5 @@ module load python3.11-anaconda/2024.02
 #### conda activate flost-env
 
 ####  Commands your job should run follow this line
-/home/jiuqian/.conda/envs/flost-env/bin/python job_flost.py $SLURM_ARRAY_TASK_ID
-#### python3 job_flost.py $SLURM_ARRAY_TASK_ID 
+/home/jiuqian/.conda/envs/flost-env/bin/python job_simu.py $SLURM_ARRAY_TASK_ID
+#### python3 job_simu.py $SLURM_ARRAY_TASK_ID 
