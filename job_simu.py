@@ -25,26 +25,26 @@ def write_simulation_dict(simulation_dict, T,K,p,seed,
     simulation_dict['time'].append(time)
     return simulation_dict
 
-T=100
-K=5
-p=0.5
+T=1000
+K=int(T/5)
+missing=0.5
 d1, d2 = 100,100
 T0 = generate_tensor_simulated(d1, d2, T, k = 10, s=0.2,r=5)
-for my_seed in tqdm(range(0,100)):
-    simu_class = simulate_data(T0, my_seed, d1=d1, d2=d2, d3=T, missing_rate=p, k=K, s=0.1, r=10)
-    simu_class.RCGD()
-    simulation_dict = write_simulation_dict(simulation_dict, T, K, p, my_seed,'RCGD',
-                                            simu_class.te_rmse_rcgd, simu_class.tr_rmse_rcgd, simu_class.time_rcgd,
+for my_seed in tqdm(range(0,3)):
+    A_T100 = simulate_data(T0, my_seed, d1=d1, d2=d2, d3=T, missing_rate=missing, k=K, r=5)
+    A_T100.RCGD()
+    simulation_dict = write_simulation_dict(simulation_dict, T, K, missing, my_seed,'RCGD',
+                                            A_T100.te_rmse_rcgd, A_T100.tr_rmse_rcgd, A_T100.time_rcgd,
                                             )
-    simu_class.FLoST()
-    simulation_dict = write_simulation_dict(simulation_dict, T, K, p, my_seed,'FLoST',
-                                            simu_class.te_rmse_flost, simu_class.tr_rmse_flost, simu_class.time_flost,
+    A_T100.FLoST()
+    simulation_dict = write_simulation_dict(simulation_dict, T, K, missing, my_seed,'FLoST',
+                                            A_T100.te_rmse_flost, A_T100.tr_rmse_flost, A_T100.time_flost,
                                             )
-    simu_class.FLT()
-    simulation_dict = write_simulation_dict(simulation_dict, T, K, p, my_seed,'FLT',
-                                            simu_class.te_rmse_flost, simu_class.tr_rmse_flost, simu_class.time_flost,
+    A_T100.FLT()
+    simulation_dict = write_simulation_dict(simulation_dict, T, K, missing, my_seed,'FLT',
+                                            A_T100.te_rmse_flt, A_T100.tr_rmse_flt, A_T100.time_flt,
                                             )
-jobname = 'B1'
+jobname = 'A3'
 import json
 with open(jobname+'.json', "w") as fp:
     json.dump(simulation_dict, fp) 
