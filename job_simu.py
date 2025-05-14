@@ -26,9 +26,9 @@ def write_simulation_dict(simulation_dict, T,K,p,seed,
     return simulation_dict
 
 '''Change the parameters here'''
-jobname = 'A2'
+jobname = 'B2'
 T=500
-K=int(T/5)
+K=int(T/20)
 missing=0.5
 
 
