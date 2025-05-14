@@ -1,6 +1,6 @@
 #!/bin/bash
 ## sbatch job.sh to run
-#SBATCH --job-name=C3
+#SBATCH --job-name=B3
 #SBATCH --mail-user=jiuqian@umich.edu
 #SBATCH --mail-type=FAIL,END
 
