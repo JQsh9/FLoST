@@ -30,7 +30,7 @@ K=200
 p=0.5
 d1, d2 = 100,100
 T0 = generate_tensor_simulated(d1, d2, T, k = 10, s=0.2,r=5)
-for my_seed in tqdm(range(0,10)):
+for my_seed in tqdm(range(0,100)):
     simu_class = simulate_data(T0, my_seed, d1=d1, d2=d2, d3=T, missing_rate=p, k=K, s=0.1, r=10)
     simu_class.RCGD()
     simulation_dict = write_simulation_dict(simulation_dict, T, K, p, my_seed,'RCGD',
@@ -44,7 +44,7 @@ for my_seed in tqdm(range(0,10)):
     simulation_dict = write_simulation_dict(simulation_dict, T, K, p, my_seed,'FLT',
                                             simu_class.te_rmse_flost, simu_class.tr_rmse_flost, simu_class.time_flost,
                                             )
-jobname = 'A_T1000_K200_p5'
+jobname = 'A3'
 import json
 with open(jobname+'.json', "w") as fp:
     json.dump(simulation_dict, fp) 
