@@ -25,7 +25,7 @@ def write_simulation_dict(simulation_dict, T,K,p,seed,
     simulation_dict['time'].append(time)
     return simulation_dict
 
-T=1000
+T=500
 K=int(T/5)
 missing=0.8
 d1, d2 = 100,100
@@ -44,7 +44,7 @@ for my_seed in tqdm(range(0,100)):
     simulation_dict = write_simulation_dict(simulation_dict, T, K, missing, my_seed,'FLT',
                                             A_T100.te_rmse_flt, A_T100.tr_rmse_flt, A_T100.time_flt,
                                             )
-jobname = 'C3'
+jobname = 'C2'
 import json
 with open(jobname+'.json', "w") as fp:
     json.dump(simulation_dict, fp) 
