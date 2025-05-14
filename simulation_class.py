@@ -4,7 +4,7 @@ from bayes_opt import BayesianOptimization
 import random
 
 class simulate_data():
-    def __init__(self, T0,my_seed, d1, d2, d3,missing_rate=0.5, k=10, s=0.2, r=5):
+    def __init__(self, T0,my_seed, d1, d2, d3,missing_rate=0.5, k=10, r=5):
         self.k =k
         self.r, self.missing_rate, self.d3= r, missing_rate, d3
         self.size = d1 * d2 * d3
