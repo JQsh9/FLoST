@@ -26,8 +26,8 @@ def write_simulation_dict(simulation_dict, T,K,p,seed,
     return simulation_dict
 
 T=500
-K=int(T/5)
-missing=0.8
+K=int(T/20)
+missing=0.5
 d1, d2 = 100,100
 T0 = generate_tensor_simulated(d1, d2, T, k = 10, s=0.2,r=5)
 for my_seed in tqdm(range(0,100)):
@@ -44,7 +44,7 @@ for my_seed in tqdm(range(0,100)):
     simulation_dict = write_simulation_dict(simulation_dict, T, K, missing, my_seed,'FLT',
                                             A_T100.te_rmse_flt, A_T100.tr_rmse_flt, A_T100.time_flt,
                                             )
-jobname = 'C2'
+jobname = 'B2'
 import json
 with open(jobname+'.json', "w") as fp:
     json.dump(simulation_dict, fp) 
