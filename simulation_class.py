@@ -13,15 +13,16 @@ class simulate_data():
         np.random.seed(my_seed)
         self.Tn = T0 + np.random.normal(0,0.1, size=(d1, d2, d3))
         self.Tm = randomly_drop_pixels(self.Tn, missing_rate, seed=my_seed)
-
         self.mask_test = np.isnan(self.Tm)
+        self.test_size = np.sum(self.mask_test)
+        self.train_size = self.size - self.test_size
     def RCGD(self,):
         time_start = time.time()
         self.T_rcgd = tensor_rcgd(self.Tm, self.r, monitor_seed=self.seed) 
         time_end = time.time()
         self.time_rcgd = time_end - time_start
-        self.te_rmse_rcgd = np.linalg.norm(self.T0[self.mask_test] - self.T_rcgd[self.mask_test]) / math.sqrt(self.size)
-        self.tr_rmse_rcgd = np.linalg.norm(self.T0[~self.mask_test] - self.T_rcgd[~self.mask_test]) / math.sqrt(self.size)
+        self.te_rmse_rcgd = np.linalg.norm(self.T0[self.mask_test] - self.T_rcgd[self.mask_test]) / math.sqrt(self.test_size)
+        self.tr_rmse_rcgd = np.linalg.norm(self.T0[~self.mask_test] - self.T_rcgd[~self.mask_test]) / math.sqrt(self.train_size)
         
 
     def tune_lam(self,upper=1000, lower=0, random_state=0, init_points=5, n_iter=50, verbose=0):
@@ -44,8 +45,8 @@ class simulate_data():
         self.T_flost = sparse_low_rank(self.Tm, self.missing_rate, self.k, lam1=np.dot(self.sv2,1), lam2=self.lam2_opt)
         time_end = time.time()
         self.time_flost = time_end - time_start
-        self.te_rmse_flost = np.linalg.norm(self.T0[self.mask_test] - self.T_flost[self.mask_test]) / math.sqrt(self.size)
-        self.tr_rmse_flost = np.linalg.norm(self.T0[~self.mask_test] - self.T_flost[~self.mask_test]) / math.sqrt(self.size)
+        self.te_rmse_flost = np.linalg.norm(self.T0[self.mask_test] - self.T_flost[self.mask_test]) / math.sqrt(self.test_size)
+        self.tr_rmse_flost = np.linalg.norm(self.T0[~self.mask_test] - self.T_flost[~self.mask_test]) / math.sqrt(self.train_size)
 
     def FLT(self,):
         self.half_d3 = math.ceil( (self.d3 + 1)/2 )
@@ -54,8 +55,8 @@ class simulate_data():
         self.T_flt = sparse_low_rank(self.Tm, self.missing_rate, self.half_d3, lam1=np.dot(self.sv2,1), lam2=self.lam2_opt)
         time_end = time.time()
         self.time_flt = time_end - time_start
-        self.te_rmse_flt = np.linalg.norm(self.T0[self.mask_test] - self.T_flt[self.mask_test]) / math.sqrt(self.size)
-        self.tr_rmse_flt = np.linalg.norm(self.T0[~self.mask_test] - self.T_flt[~self.mask_test]) / math.sqrt(self.size)
+        self.te_rmse_flt = np.linalg.norm(self.T0[self.mask_test] - self.T_flt[self.mask_test]) / math.sqrt(self.test_size)
+        self.tr_rmse_flt = np.linalg.norm(self.T0[~self.mask_test] - self.T_flt[~self.mask_test]) / math.sqrt(self.train_size)
         
 
         
