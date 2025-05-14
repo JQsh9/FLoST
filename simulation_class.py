@@ -1,4 +1,4 @@
-from RCGD.sparse_low_rank.simulation_functions import *
+from simulation_functions import *
 import time
 from bayes_opt import BayesianOptimization
 import random
