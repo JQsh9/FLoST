@@ -44,7 +44,7 @@ for my_seed in tqdm(range(0,10)):
     simulation_dict = write_simulation_dict(simulation_dict, T, K, p, my_seed,'FLT',
                                             simu_class.te_rmse_flost, simu_class.tr_rmse_flost, simu_class.time_flost,
                                             )
-jobname = 'A_T500_K100_p0.5'
+jobname = 'A_T500_K100_p5'
 import json
 with open(jobname+'.json', "w") as fp:
     json.dump(simulation_dict, fp) 
