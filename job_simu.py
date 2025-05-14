@@ -29,7 +29,7 @@ def write_simulation_dict(simulation_dict, T,K,p,seed,
 jobname = 'E1'
 T=1000
 K=int(T/10)
-missing=0.5
+missing=0.8
 
 
 d1, d2 = 100,100
