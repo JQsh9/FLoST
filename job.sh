@@ -1,6 +1,6 @@
 #!/bin/bash
 ## sbatch job.sh to run
-#SBATCH --job-name=short_SB3
+#SBATCH --job-name=short_SB2
 #SBATCH --mail-user=jiuqian@umich.edu
 #SBATCH --mail-type=FAIL
 
@@ -12,11 +12,11 @@
 #SBATCH --cpus-per-task=1
 
 ## 5GB/cpu is the basic share
-#SBATCH --mem-per-cpu=5GB
+#SBATCH --mem-per-cpu=3GB
 
 ## wall time hours:minutes:seconds
-#SBATCH --time=5:00:00
-#SBATCH --array=0-60
+#SBATCH --time=00:30:00
+#SBATCH --array=0-100
 
 ###   Load software modules
 ####  Commands your job should run follow this line
