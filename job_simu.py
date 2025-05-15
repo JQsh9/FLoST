@@ -30,8 +30,8 @@ seed_start = int(sys.argv[1])
 jobname = f'SB3_{seed_start}'
 #jobname = 'SA3'
 T=1000
-K=int(T/20)
-missing=0.5
+K=int(T/10)
+missing=0.8
 
 
 d1, d2 = 100,100
