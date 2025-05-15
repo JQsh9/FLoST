@@ -94,20 +94,20 @@ def tensor_rcgd(X, # tensor to be completed
                 trank, #tubal rank 
                 monitor_seed=2024, # seed for random selection of monitoring set
                 monitor_size=0.1, # proportion of monitoring set (in observed set)
-                tol = 0, # tolerance for stopping criterion
+                tol = 1e-6, # tolerance for stopping criterion
                 max_iter=200): 
     """Tensor Riemannian Conjugate Gradient Descent."""
 
     # validation set used to monitor the Alg.
     o_inds = np.where(~np.isnan(X))
     m_inds = np.where(np.isnan(X))
-    monitor_size = int(len(o_inds[0]) * monitor_size)
-    random.seed(monitor_seed)
-    monitor_inds = random.sample(range(len(o_inds[0])), monitor_size)
-    monitor_rows, monitor_cols, monitor_tubes = o_inds[0][monitor_inds], o_inds[1][monitor_inds], o_inds[2][monitor_inds]
+    #monitor_size = int(len(o_inds[0]) * monitor_size)
+    #random.seed(monitor_seed)
+    #monitor_inds = random.sample(range(len(o_inds[0])), monitor_size)
+    #monitor_rows, monitor_cols, monitor_tubes = o_inds[0][monitor_inds], o_inds[1][monitor_inds], o_inds[2][monitor_inds]
     
-    blind_inds=(np.concatenate((m_inds[0],monitor_rows)),np.concatenate((m_inds[1], monitor_cols)),np.concatenate((m_inds[2], monitor_tubes)))
-   # blind_inds = (np.concatenate((blind_inds[0],t_inds[0])), np.concatenate((blind_inds[1],t_inds[1])), np.concatenate((blind_inds[2],t_inds[2])))
+    #blind_inds=(np.concatenate((m_inds[0],monitor_rows)),np.concatenate((m_inds[1], monitor_cols)),np.concatenate((m_inds[2], monitor_tubes)))
+    blind_inds=(m_inds[0], m_inds[1], m_inds[2])
 
     # Initialization
     Xl = X.copy()
@@ -126,10 +126,13 @@ def tensor_rcgd(X, # tensor to be completed
             alpha = np.sum(Q * Q) / np.sum(Q* ROmega(Q,blind_inds)) 
             Xl_new, Ul_new, Sl_new, Vl_new= update(Ul, Sl, Vl, alpha*G)
 
-            Xlnew_monitor = Xl_new[monitor_rows, monitor_cols, monitor_tubes]
-            X_true =X[monitor_rows, monitor_cols, monitor_tubes] 
-            monitor= np.linalg.norm(Xlnew_monitor-X_true)/ np.linalg.norm(X_true)
+            #Xlnew_monitor = Xl_new[monitor_rows, monitor_cols, monitor_tubes]
+            #X_true =X[monitor_rows, monitor_cols, monitor_tubes] 
+            #monitor= np.linalg.norm(Xlnew_monitor-X_true)/ np.linalg.norm(X_true)
             #print(l,monitor)
+            if np.linalg.norm(Xl_new-Xl)/math.sqrt(Xl.size) < tol:
+                print('reached the optimal res', l)
+                break
             Xl = Xl_new; Ul = Ul_new; Sl = Sl_new; Vl = Vl_new
             Q_prev = Q
             continue
@@ -142,16 +145,19 @@ def tensor_rcgd(X, # tensor to be completed
         Xl_new, Ul_new, Sl_new, Vl_new= update(Ul, Sl, Vl, alpha*(G+beta*Q_prev))
 
         # Check for stopping condition
-        Xlnew_monitor = Xl_new[monitor_rows, monitor_cols, monitor_tubes] 
-        X_true = X[monitor_rows, monitor_cols, monitor_tubes]
-        monitor_new= np.linalg.norm(Xlnew_monitor-X_true)/ np.linalg.norm(X_true)
+        #Xlnew_monitor = Xl_new[monitor_rows, monitor_cols, monitor_tubes] 
+        #X_true = X[monitor_rows, monitor_cols, monitor_tubes]
+        #monitor_new= np.linalg.norm(Xlnew_monitor-X_true)/ np.linalg.norm(X_true)
         #print(l,monitor_new)
-        if monitor - monitor_new < tol:
+        #if monitor - monitor_new < tol:
             #print('reached the optimal res')
+        #    break
+        #monitor = monitor_new
+        if np.linalg.norm(Xl_new-Xl)/math.sqrt(Xl.size) < tol:
+            print('reached the optimal res', l)
             break
-        monitor = monitor_new
-        
+        print(l, np.linalg.norm(Xl_new-Xl)/math.sqrt(Xl.size))
         Xl = Xl_new; Ul = Ul_new; Sl = Sl_new; Vl = Vl_new
         Q_prev = Q
         
-    return Xl
+    return Xl, l
