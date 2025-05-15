@@ -27,7 +27,7 @@ def write_simulation_dict(simulation_dict, T,K,p,seed,
 
 seed_start = int(sys.argv[1])
 '''Change the parameters here'''
-jobname = f'short_SC3_{seed_start}'
+jobname = f'short_SA3_{seed_start}'
 T=1000
 K=int(T/10)
 missing=0.5
