@@ -1,8 +1,8 @@
 #!/bin/bash
 ## sbatch job.sh to run
-#SBATCH --job-name=SA3
+#SBATCH --job-name=SB3
 #SBATCH --mail-user=jiuqian@umich.edu
-#SBATCH --mail-type=FAIL,END
+#SBATCH --mail-type=FAIL
 
 #SBATCH --account=stats_dept1
 #SBATCH --partition=standard
