@@ -36,7 +36,7 @@ s=0.01
 d1, d2 = 100,100
 r=5
 T0 = generate_tensor_simulated(d1, d2, T, k = K, s=s,r=r)
-for my_seed in tqdm(range(seed_start, seed_start+10)):
+for my_seed in tqdm(range(seed_start, seed_start+1)):
     A_T100 = simulate_data(T0, my_seed, d1=d1, d2=d2, d3=T, missing_rate=missing, k=K, r=r)
     A_T100.RCGD()
     simulation_dict = write_simulation_dict(simulation_dict, T, K, missing, my_seed,'RCGD',
