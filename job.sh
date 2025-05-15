@@ -16,7 +16,7 @@
 
 ## wall time hours:minutes:seconds
 #SBATCH --time=5:00:00
-#SBATCH --array=0-20,40-100
+#SBATCH --array=0-80
 
 ###   Load software modules
 ####  Commands your job should run follow this line
