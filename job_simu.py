@@ -25,18 +25,19 @@ def write_simulation_dict(simulation_dict, T,K,p,seed,
     simulation_dict['time'].append(time)
     return simulation_dict
 
-seed_start = int(sys.argv[1])
+#seed_start = int(sys.argv[1])
 '''Change the parameters here'''
-jobname = f'EB1_{seed_start}'
-T=100
+#jobname = f'EA2_{seed_start}'
+jobname = 'A2'
+T=500
 K=int(T/10)
-missing=0.8
+missing=0.5
 
 
 d1, d2 = 100,100
 r=5
 T0 = generate_tensor_simulated(d1, d2, T, k = 10, s=0.2,r=r)
-for my_seed in tqdm(range(seed_start, seed_start+50)):
+for my_seed in tqdm(range(0, 100)):
     A_T100 = simulate_data(T0, my_seed, d1=d1, d2=d2, d3=T, missing_rate=missing, k=K, r=r)
     A_T100.RCGD()
     simulation_dict = write_simulation_dict(simulation_dict, T, K, missing, my_seed,'RCGD',
