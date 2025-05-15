@@ -18,7 +18,7 @@ class simulate_data():
         self.train_size = self.size - self.test_size
     def RCGD(self,):
         time_start = time.time()
-        self.T_rcgd = tensor_rcgd(self.Tm, self.r, monitor_seed=self.seed) 
+        self.T_rcgd, self.l = tensor_rcgd(self.Tm, self.r, monitor_seed=self.seed) 
         time_end = time.time()
         self.time_rcgd = time_end - time_start
         self.te_rmse_rcgd = np.linalg.norm(self.T0[self.mask_test] - self.T_rcgd[self.mask_test]) / math.sqrt(self.test_size)
